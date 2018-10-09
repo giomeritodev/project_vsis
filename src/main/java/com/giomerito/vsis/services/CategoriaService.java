@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.giomerito.vsis.domain.Categoria;
 import com.giomerito.vsis.repositories.CategoriaRepository;
+import com.giomerito.vsis.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -16,6 +17,7 @@ public class CategoriaService {
 	
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado, ID: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 }
