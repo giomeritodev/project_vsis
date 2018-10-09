@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.giomerito.vsis.domain.Categoria;
+import com.giomerito.vsis.domain.Cidade;
+import com.giomerito.vsis.domain.Estado;
 import com.giomerito.vsis.domain.Produto;
 import com.giomerito.vsis.repositories.CategoriaRepository;
+import com.giomerito.vsis.repositories.CidadeRepository;
+import com.giomerito.vsis.repositories.EstadoRepository;
 import com.giomerito.vsis.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -19,6 +23,10 @@ public class SistemaVsisApplication implements CommandLineRunner{
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private EstadoRepository estadoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaVsisApplication.class, args);
@@ -42,9 +50,26 @@ public class SistemaVsisApplication implements CommandLineRunner{
 		//Relacionando os produtos com as Categorias
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat2));
-		p3.getCategorias().addAll(Arrays.asList(cat2));		
+		p3.getCategorias().addAll(Arrays.asList(cat2));			
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+		
+		Estado e1 = new Estado(null, "Bahia");
+		Estado e2 = new Estado(null, "Goias");
+		Estado e3 = new Estado(null, "São Paulo");
+		
+		Cidade c1 = new Cidade(null, "Luis Eduardo Magalhães", e1);
+		Cidade c2 = new Cidade(null, "Goiânia", e2);
+		Cidade c3 = new Cidade(null, "São Paulo", e3);
+		Cidade c4 = new Cidade(null, "Barreiras", e1);
+		Cidade c5 = new Cidade(null, "Irecê", e1);
+		
+		e1.getCidades().addAll(Arrays.asList(c1, c4, c5));
+		e2.getCidades().addAll(Arrays.asList(c2));
+		e3.getCidades().addAll(Arrays.asList(c3));
+		
+		estadoRepository.saveAll(Arrays.asList(e1,e2,e3));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4,c5));
 	}
 }
