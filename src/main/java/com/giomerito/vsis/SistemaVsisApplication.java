@@ -55,9 +55,9 @@ public class SistemaVsisApplication implements CommandLineRunner{
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
-		Estado e1 = new Estado(null, "Bahia");
-		Estado e2 = new Estado(null, "Goias");
-		Estado e3 = new Estado(null, "São Paulo");
+		Estado e1 = new Estado(null, "Bahia", "BA");
+		Estado e2 = new Estado(null, "Goias", "GO");
+		Estado e3 = new Estado(null, "São Paulo", "SP");
 		
 		Cidade c1 = new Cidade(null, "Luis Eduardo Magalhães", e1);
 		Cidade c2 = new Cidade(null, "Goiânia", e2);
