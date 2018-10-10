@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.giomerito.vsis.domain.Categoria;
 import com.giomerito.vsis.domain.Cidade;
+import com.giomerito.vsis.domain.Cliente;
+import com.giomerito.vsis.domain.Endereco;
 import com.giomerito.vsis.domain.Estado;
 import com.giomerito.vsis.domain.Produto;
+import com.giomerito.vsis.domain.enums.TipoCliente;
 import com.giomerito.vsis.repositories.CategoriaRepository;
 import com.giomerito.vsis.repositories.CidadeRepository;
+import com.giomerito.vsis.repositories.ClienteRepository;
+import com.giomerito.vsis.repositories.EnderecoRepository;
 import com.giomerito.vsis.repositories.EstadoRepository;
 import com.giomerito.vsis.repositories.ProdutoRepository;
 
@@ -27,6 +32,10 @@ public class SistemaVsisApplication implements CommandLineRunner{
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaVsisApplication.class, args);
@@ -71,5 +80,20 @@ public class SistemaVsisApplication implements CommandLineRunner{
 		
 		estadoRepository.saveAll(Arrays.asList(e1,e2,e3));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4,c5));
+		
+		Cliente cli1 = new Cliente(null, "Giomerito Alves de Souza", "giomerito.dev@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		cli1.getTelefone().addAll(Arrays.asList("(77) 99966-6600", "(62) 99869-2532"));
+		Cliente cli2 = new Cliente(null, "Giullia Alves dos Santos", "giomerito.souza@gmail.com", "36378912388", TipoCliente.PESSOAFISICA);
+		cli2.getTelefone().addAll(Arrays.asList("(77) 99919-7398", "(62) 99869-2532"));
+		
+		
+		Endereco end1 = new Endereco(null, "Rua do Oitiseiro", "1586", "Casa 2", "Jardim das Acácias", "47.850-000", cli1, c1);
+		Endereco end2 = new Endereco(null, "Rua do Oitiseiro", "1586", "Casa 2", "Jardim das Acácias", "47.850-000", cli2, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(end1));
+		cli2.getEnderecos().addAll(Arrays.asList(end2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(end1, end2));
 	}
 }
