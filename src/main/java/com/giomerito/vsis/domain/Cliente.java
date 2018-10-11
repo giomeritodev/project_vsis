@@ -17,7 +17,8 @@ import javax.persistence.OneToMany;
 import com.giomerito.vsis.domain.enums.TipoCliente;
 
 @Entity
-public class Cliente implements Serializable{	
+public class Cliente implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,16 +28,17 @@ public class Cliente implements Serializable{
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
+
 	
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
-	@CollectionTable(name="TELEFONE")
-	private Set<String> telefone = new HashSet<>();
-	
+	@CollectionTable(name = "TELEFONE")
+	private Set<String> telefones = new HashSet<>();
+
 	public Cliente() {
-		
+
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
@@ -96,12 +98,12 @@ public class Cliente implements Serializable{
 		this.enderecos = enderecos;
 	}
 
-	public Set<String> getTelefone() {
-		return telefone;
+	public Set<String> getTelefones() {
+		return telefones;
 	}
 
-	public void setTelefone(Set<String> telefone) {
-		this.telefone = telefone;
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override
@@ -114,18 +116,23 @@ public class Cliente implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Cliente other = (Cliente) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		return true;
 	}
 }
