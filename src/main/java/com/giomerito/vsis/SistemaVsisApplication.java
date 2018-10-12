@@ -1,5 +1,6 @@
 package com.giomerito.vsis;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,20 @@ import com.giomerito.vsis.domain.Cidade;
 import com.giomerito.vsis.domain.Cliente;
 import com.giomerito.vsis.domain.Endereco;
 import com.giomerito.vsis.domain.Estado;
+import com.giomerito.vsis.domain.Pagamento;
+import com.giomerito.vsis.domain.PagamentoComCartao;
+import com.giomerito.vsis.domain.PagamentoComDinheiro;
+import com.giomerito.vsis.domain.Pedido;
 import com.giomerito.vsis.domain.Produto;
+import com.giomerito.vsis.domain.enums.EstadoPagamento;
 import com.giomerito.vsis.domain.enums.TipoCliente;
 import com.giomerito.vsis.repositories.CategoriaRepository;
 import com.giomerito.vsis.repositories.CidadeRepository;
 import com.giomerito.vsis.repositories.ClienteRepository;
 import com.giomerito.vsis.repositories.EnderecoRepository;
 import com.giomerito.vsis.repositories.EstadoRepository;
+import com.giomerito.vsis.repositories.PagamentoRepository;
+import com.giomerito.vsis.repositories.PedidoRepository;
 import com.giomerito.vsis.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -36,6 +44,10 @@ public class SistemaVsisApplication implements CommandLineRunner{
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaVsisApplication.class, args);
@@ -96,5 +108,20 @@ public class SistemaVsisApplication implements CommandLineRunner{
 		
 		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"),cli1, end1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"),cli1, end2);
+		
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
+		Pagamento pagto2 = new PagamentoComDinheiro(null, EstadoPagamento.QUITADO, ped2, 120.00);
+		ped2.setPagamento(pagto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 	}
 }
