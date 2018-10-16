@@ -13,6 +13,7 @@ import com.giomerito.vsis.domain.Cidade;
 import com.giomerito.vsis.domain.Cliente;
 import com.giomerito.vsis.domain.Endereco;
 import com.giomerito.vsis.domain.Estado;
+import com.giomerito.vsis.domain.ItemPedido;
 import com.giomerito.vsis.domain.Pagamento;
 import com.giomerito.vsis.domain.PagamentoComCartao;
 import com.giomerito.vsis.domain.PagamentoComDinheiro;
@@ -25,6 +26,7 @@ import com.giomerito.vsis.repositories.CidadeRepository;
 import com.giomerito.vsis.repositories.ClienteRepository;
 import com.giomerito.vsis.repositories.EnderecoRepository;
 import com.giomerito.vsis.repositories.EstadoRepository;
+import com.giomerito.vsis.repositories.ItemPedidoRepository;
 import com.giomerito.vsis.repositories.PagamentoRepository;
 import com.giomerito.vsis.repositories.PedidoRepository;
 import com.giomerito.vsis.repositories.ProdutoRepository;
@@ -48,6 +50,8 @@ public class SistemaVsisApplication implements CommandLineRunner{
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaVsisApplication.class, args);
@@ -123,5 +127,21 @@ public class SistemaVsisApplication implements CommandLineRunner{
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		//Pedidos identifica seus itens
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		//O Produto identifica os itens
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p2.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+		
 	}
 }

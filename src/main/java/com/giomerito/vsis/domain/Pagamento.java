@@ -25,11 +25,9 @@ public abstract class Pagamento implements Serializable{
 	@JoinColumn(name="pedido_id")
 	@MapsId
 	private Pedido pedido;
-	
-	
+		
 	public Pagamento() {
 	}
-
 
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
