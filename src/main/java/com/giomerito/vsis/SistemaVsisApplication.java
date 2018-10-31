@@ -120,7 +120,7 @@ public class SistemaVsisApplication implements CommandLineRunner{
 		
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
-		Pagamento pagto2 = new PagamentoComDinheiro(null, EstadoPagamento.QUITADO, ped2, 700.00);
+		Pagamento pagto2 = new PagamentoComDinheiro(null, EstadoPagamento.QUITADO, ped2, 700.00, 0.00);
 		ped2.setPagamento(pagto2);
 		
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));

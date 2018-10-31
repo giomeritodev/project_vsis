@@ -9,14 +9,16 @@ public class PagamentoComDinheiro extends Pagamento{
 	private static final long serialVersionUID = 1L;
 
 	private Double valorPago;
+	private Double valorDesconto;
 		
 	public PagamentoComDinheiro() {
 		
 	}
 
-	public PagamentoComDinheiro(Integer id, EstadoPagamento estado, Pedido pedido, Double valorPago) {
+	public PagamentoComDinheiro(Integer id, EstadoPagamento estado, Pedido pedido, Double valorPago, Double valorDesconto) {
 		super(id, estado, pedido);
 		this.valorPago = valorPago;
+		this.valorDesconto = valorDesconto;
 	}
 
 	public Double getValorPago() {
@@ -25,5 +27,13 @@ public class PagamentoComDinheiro extends Pagamento{
 
 	public void setValorPago(Double valorPago) {
 		this.valorPago = valorPago;
+	}
+
+	public Double getValorDesconto() {
+		return valorDesconto;
+	}
+
+	public void setValorDesconto(Double valorDesconto) {
+		this.valorDesconto = valorDesconto;
 	}
 }
