@@ -63,9 +63,9 @@ public class SistemaVsisApplication implements CommandLineRunner{
 		Categoria cat1 = new Categoria(null, "Sorvete");
 		Categoria cat2 = new Categoria(null, "Picolé");
 		
-		Produto p1 = new Produto(null, "Sorvete 200ml", 1.50);
-		Produto p2 = new Produto(null, "Picolé cremoso", 0.75);
-		Produto p3 = new Produto(null, "Picolé fruta", 0.75);
+		Produto p1 = new Produto(null, 10, "0100000000000", "Sorvete 200ml", 1.50);
+		Produto p2 = new Produto(null, 20, "0200000000000", "Picolé cremoso",  0.75);
+		Produto p3 = new Produto(null, 30, "0300000000000", "Picolé fruta", 0.75);
 		
 		
 		//Relacionado as categorias com os produtos

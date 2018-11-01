@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,12 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(nullable=false, unique=true)
+	private Integer codigoInterno;
+	
+	@Column(length=13, nullable=true, unique=true)
+	private String codigoBarras;
 	private String nome;
 	private Double preco;
 
@@ -33,25 +40,27 @@ public class Produto implements Serializable {
 	private List<Categoria> categorias = new ArrayList<>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy="id.produto")
+	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 
 	public Produto() {
 
 	}
 
-	public Produto(Integer id, String nome, Double preco) {
+	public Produto(Integer id, Integer cInterno, String cBarras, String nome, Double preco) {
 		super();
 		this.id = id;
+		this.setCodigoInterno(cInterno);
+		this.setCodigoBarras(cBarras);
 		this.nome = nome;
 		this.preco = preco;
 	}
-	
-	//Para listar os pedidos referente a um produto
+
+	// Para listar os pedidos referente a um produto
 	@JsonIgnore
-	public List<Pedido> getPedidos(){
+	public List<Pedido> getPedidos() {
 		List<Pedido> lista = new ArrayList<>();
-		for(ItemPedido x : itens) {
+		for (ItemPedido x : itens) {
 			lista.add(x.getPedido());
 		}
 		return lista;
@@ -97,6 +106,22 @@ public class Produto implements Serializable {
 		this.itens = itens;
 	}
 
+	public Integer getCodigoInterno() {
+		return codigoInterno;
+	}
+
+	public void setCodigoInterno(Integer codigoInterno) {
+		this.codigoInterno = codigoInterno;
+	}
+
+	public String getCodigoBarras() {
+		return codigoBarras;
+	}
+
+	public void setCodigoBarras(String codigoBarras) {
+		this.codigoBarras = codigoBarras;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -121,5 +146,4 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
 }
