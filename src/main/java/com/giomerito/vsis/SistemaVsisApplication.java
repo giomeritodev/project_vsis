@@ -19,8 +19,10 @@ import com.giomerito.vsis.domain.PagamentoComCartao;
 import com.giomerito.vsis.domain.PagamentoComDinheiro;
 import com.giomerito.vsis.domain.Pedido;
 import com.giomerito.vsis.domain.Produto;
+import com.giomerito.vsis.domain.Usuario;
 import com.giomerito.vsis.domain.enums.EstadoPagamento;
 import com.giomerito.vsis.domain.enums.TipoCliente;
+import com.giomerito.vsis.domain.enums.TipoUsuario;
 import com.giomerito.vsis.repositories.CategoriaRepository;
 import com.giomerito.vsis.repositories.CidadeRepository;
 import com.giomerito.vsis.repositories.ClienteRepository;
@@ -30,6 +32,7 @@ import com.giomerito.vsis.repositories.ItemPedidoRepository;
 import com.giomerito.vsis.repositories.PagamentoRepository;
 import com.giomerito.vsis.repositories.PedidoRepository;
 import com.giomerito.vsis.repositories.ProdutoRepository;
+import com.giomerito.vsis.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class SistemaVsisApplication implements CommandLineRunner{
@@ -52,6 +55,8 @@ public class SistemaVsisApplication implements CommandLineRunner{
 	private PagamentoRepository pagamentoRepository;
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaVsisApplication.class, args);
@@ -59,6 +64,10 @@ public class SistemaVsisApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Usuario usu = new Usuario(null, "Giomerito Alves de Souza", "giomerito", "giogiu", TipoUsuario.ADMIN);
+		
+		usuarioRepository.saveAll(Arrays.asList(usu));
 		
 		Categoria cat1 = new Categoria(null, "Sorvete");
 		Categoria cat2 = new Categoria(null, "Picolé");
