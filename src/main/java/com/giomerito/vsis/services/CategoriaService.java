@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.giomerito.vsis.domain.Categoria;
+import com.giomerito.vsis.dto.CategoriaDTO;
 import com.giomerito.vsis.repositories.CategoriaRepository;
 import com.giomerito.vsis.services.exceptions.DataIntegrityException;
 import com.giomerito.vsis.services.exceptions.ObjectNotFoundException;
@@ -55,5 +56,10 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	//Função para validação dos campos 
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
 }
