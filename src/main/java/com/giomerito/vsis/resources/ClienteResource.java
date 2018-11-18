@@ -1,5 +1,6 @@
 package com.giomerito.vsis.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.giomerito.vsis.domain.Cliente;
 import com.giomerito.vsis.dto.ClienteDTO;
+import com.giomerito.vsis.dto.ClienteNewDTO;
 import com.giomerito.vsis.services.ClienteService;
 
 @RestController
@@ -69,6 +72,17 @@ public class ClienteResource {
 		Page<Cliente> listPage = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<ClienteDTO> listPageDTO = listPage.map(obj -> new ClienteDTO(obj));
 		return ResponseEntity.ok().body(listPageDTO);
+	}
+	
+	
+	//Metodo para inclusao de um novo cliente
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objNewDTO){
+		Cliente obj = service.fromDTO(objNewDTO);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 
 }
