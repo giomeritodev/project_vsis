@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.giomerito.vsis.domain.Categoria;
 import com.giomerito.vsis.domain.Cidade;
 import com.giomerito.vsis.domain.Cliente;
 import com.giomerito.vsis.domain.Endereco;
@@ -34,7 +33,7 @@ public class ClienteService {
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado, ID: " + id + ", Tipo: " + Categoria.class.getName()));
+				"Objeto não encontrado, ID: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
 	@Transactional
@@ -57,7 +56,7 @@ public class ClienteService {
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possivel excluir cliente, existem dados relacionados!");
+			throw new DataIntegrityException("Não é possivel excluir cliente, existem pedidos relacionados!");
 		}
 	}
 	
