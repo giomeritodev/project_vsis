@@ -53,6 +53,9 @@ public class Pedido implements Serializable{
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 	
+	/* O uso do get faz com que o metodo seja serializado pelo o Spring e
+	 * aparece no resultado 
+	 */
 	public double getValorTotal() {
 		double soma = 0.0;
 		for(ItemPedido ip : itens) {

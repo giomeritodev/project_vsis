@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.giomerito.vsis.domain.Categoria;
 import com.giomerito.vsis.dto.CategoriaDTO;
@@ -28,6 +29,7 @@ public class CategoriaService {
 				"Objeto não encontrado, ID: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
+	@Transactional
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return repo.save(obj);
