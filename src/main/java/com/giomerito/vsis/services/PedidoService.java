@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.giomerito.vsis.domain.ItemPedido;
 import com.giomerito.vsis.domain.PagamentoComBoleto;
+import com.giomerito.vsis.domain.PagamentoComDinheiro;
 import com.giomerito.vsis.domain.Pedido;
 import com.giomerito.vsis.domain.enums.EstadoPagamento;
 import com.giomerito.vsis.repositories.ItemPedidoRepository;
@@ -45,6 +46,9 @@ public class PedidoService {
 		if(obj.getPagamento() instanceof PagamentoComBoleto) {
 			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
 			boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());
+		}
+		if(obj.getPagamento() instanceof PagamentoComDinheiro) {
+			obj.getPagamento().setEstado(EstadoPagamento.QUITADO);			
 		}
 		obj = repo.save(obj);
 		pagamentoRepository.save(obj.getPagamento());
