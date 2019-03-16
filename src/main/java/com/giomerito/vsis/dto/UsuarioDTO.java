@@ -12,13 +12,15 @@ public class UsuarioDTO {
 	
 	private Integer id;
 	private String nome;
-	private String usuario;	
+	private String usuario;
+	private String senha;
 	private Integer tipo;
 	
 	public UsuarioDTO(Usuario obj) {
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.usuario = obj.getUsuario();
+		this.senha = obj.getSenha();
 		this.tipo = tipoUsu.getCod();
 	}
 	
@@ -40,12 +42,20 @@ public class UsuarioDTO {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+	
+	public String getSenha() {
+		return senha;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
 	public Integer getTipo() {
 		return tipo;
 	}
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
 	}
-	
 	
 }

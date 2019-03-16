@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.giomerito.vsis.domain.Usuario;
+import com.giomerito.vsis.domain.enums.TipoUsuario;
+import com.giomerito.vsis.dto.UsuarioDTO;
 import com.giomerito.vsis.repositories.UsuarioRepository;
 import com.giomerito.vsis.services.exceptions.ObjectNotFoundException;
 
@@ -32,5 +34,15 @@ public class UsuarioService {
 	public Usuario insert(Usuario user) {
 		user.setId(null);
 		return repo.save(user);		
+	}
+	
+	public Usuario fromDTO(UsuarioDTO objDto) {
+		return new Usuario(
+				objDto.getId(), 
+				objDto.getNome(), 
+				objDto.getUsuario(), 
+				objDto.getSenha(), 
+				TipoUsuario.toEnum(objDto.getTipo())
+		);
 	}
 }
