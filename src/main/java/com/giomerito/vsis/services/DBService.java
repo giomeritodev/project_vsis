@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.giomerito.vsis.domain.Categoria;
@@ -37,6 +38,8 @@ import com.giomerito.vsis.repositories.UsuarioRepository;
 public class DBService {
 
 	@Autowired
+	private BCryptPasswordEncoder pe;
+	@Autowired
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
@@ -59,7 +62,7 @@ public class DBService {
 
 	public void instantiateTestDatabase() throws ParseException {
 
-		Usuario usu = new Usuario(null, "Giomerito Alves de Souza", "giomerito", "giogiu", TipoUsuario.ADMIN);
+		Usuario usu = new Usuario(null, "Giomerito Alves de Souza", "giomerito", pe.encode("giogiu"), TipoUsuario.ADMIN);
 
 		usuarioRepository.saveAll(Arrays.asList(usu));
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,9 @@ import com.giomerito.vsis.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UsuarioService {
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
 	private UsuarioRepository repo;
@@ -40,8 +44,8 @@ public class UsuarioService {
 		return new Usuario(
 				objDto.getId(), 
 				objDto.getNome(), 
-				objDto.getUsuario(), 
-				objDto.getSenha(), 
+				objDto.getEmail(), 
+				pe.encode(objDto.getSenha()), 
 				TipoUsuario.toEnum(objDto.getTipo())
 		);
 	}

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.giomerito.vsis.domain.enums.TipoUsuario;
 
 @Entity
@@ -18,15 +19,18 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private String usuario;
+	private String email;
+	
+	@JsonIgnore
 	private String senha;
+	
 	private Integer tipo;
 	
-	public Usuario(Integer id, String nome, String usuario, String senha, TipoUsuario tipo) {
+	public Usuario(Integer id, String nome, String email, String senha, TipoUsuario tipo) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.usuario = usuario;
+		this.email = email;
 		this.senha = senha;
 		this.tipo = tipo.getCod();
 	}
@@ -47,12 +51,12 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSenha() {

@@ -1,5 +1,8 @@
 package com.giomerito.vsis.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.giomerito.vsis.domain.Usuario;
@@ -11,15 +14,20 @@ public class UsuarioDTO {
 	private TipoUsuario tipoUsu;
 	
 	private Integer id;
+	@NotEmpty(message="O preenchimento é obrigatório!")
 	private String nome;
-	private String usuario;
+	@NotEmpty(message="O preenchimento é obrigatório!")
+	@Email(message="Email inválido!")
+	private String email;
+	@NotEmpty(message="O preenchimento é obrigatório!")
 	private String senha;
+	@NotEmpty(message="O preenchimento é obrigatório!")
 	private Integer tipo;
 	
 	public UsuarioDTO(Usuario obj) {
 		this.id = obj.getId();
 		this.nome = obj.getNome();
-		this.usuario = obj.getUsuario();
+		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
 		this.tipo = tipoUsu.getCod();
 	}
@@ -36,11 +44,11 @@ public class UsuarioDTO {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getUsuario() {
-		return usuario;
+	public String getEmail() {
+		return email;
 	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	public String getSenha() {
