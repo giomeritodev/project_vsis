@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.giomerito.vsis.domain.Usuario;
-import com.giomerito.vsis.domain.enums.TipoUsuario;
 import com.giomerito.vsis.dto.UsuarioDTO;
 import com.giomerito.vsis.repositories.UsuarioRepository;
 import com.giomerito.vsis.services.exceptions.ObjectNotFoundException;
@@ -26,7 +25,7 @@ public class UsuarioService {
 	public Usuario find(Integer id) {
 		Optional<Usuario> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado, ID: "+ id + " Tipo: " + 
+				"Objeto não encontrado, ID: "+ id + " Perfil: " + 
 						Usuario.class.getName()));
 	}
 	
@@ -45,8 +44,7 @@ public class UsuarioService {
 				objDto.getId(), 
 				objDto.getNome(), 
 				objDto.getEmail(), 
-				pe.encode(objDto.getSenha()), 
-				TipoUsuario.toEnum(objDto.getTipo())
+				pe.encode(objDto.getSenha())				
 		);
 	}
 }

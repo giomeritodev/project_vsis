@@ -1,14 +1,20 @@
 package com.giomerito.vsis.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.giomerito.vsis.domain.enums.TipoUsuario;
+import com.giomerito.vsis.domain.enums.Perfil;
 
 @Entity
 public class Usuario implements Serializable {
@@ -24,15 +30,24 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	private String senha;
 	
-	private Integer tipo;
 	
-	public Usuario(Integer id, String nome, String email, String senha, TipoUsuario tipo) {
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="perfis")
+	private Set<Integer> perfis = new HashSet<>();
+	
+	
+	
+	public Usuario() {
+		addPerfil(Perfil.USER);
+	}
+
+	public Usuario(Integer id, String nome, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.senha = senha;
-		this.tipo = tipo.getCod();
+		this.senha = senha;		
+		addPerfil(Perfil.USER);
 	}
 
 	public Integer getId() {
@@ -66,13 +81,13 @@ public class Usuario implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	public TipoUsuario getTipo() {
-		return TipoUsuario.toEnum(tipo);
+	
+	public Set<Perfil> getPerfis(){
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
-
-	public void setTipo(TipoUsuario tipo) {
-		this.tipo = tipo.getCod();
-	}	
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
 	
 }

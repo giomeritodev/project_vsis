@@ -22,7 +22,7 @@ import com.giomerito.vsis.domain.Produto;
 import com.giomerito.vsis.domain.Usuario;
 import com.giomerito.vsis.domain.enums.EstadoPagamento;
 import com.giomerito.vsis.domain.enums.TipoCliente;
-import com.giomerito.vsis.domain.enums.TipoUsuario;
+import com.giomerito.vsis.domain.enums.Perfil;
 import com.giomerito.vsis.repositories.CategoriaRepository;
 import com.giomerito.vsis.repositories.CidadeRepository;
 import com.giomerito.vsis.repositories.ClienteRepository;
@@ -62,8 +62,8 @@ public class DBService {
 
 	public void instantiateTestDatabase() throws ParseException {
 
-		Usuario usu = new Usuario(null, "Giomerito Alves de Souza", "giomerito", pe.encode("giogiu"), TipoUsuario.ADMIN);
-
+		Usuario usu = new Usuario(null, "Giomerito Alves de Souza", "giomerito", pe.encode("giogiu"));
+		usu.addPerfil(Perfil.ADMIN);
 		usuarioRepository.saveAll(Arrays.asList(usu));
 
 		Categoria cat1 = new Categoria(null, "Imformatica");

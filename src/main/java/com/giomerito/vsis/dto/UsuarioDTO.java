@@ -6,12 +6,12 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.giomerito.vsis.domain.Usuario;
-import com.giomerito.vsis.domain.enums.TipoUsuario;
+import com.giomerito.vsis.domain.enums.Perfil;
 
 public class UsuarioDTO {
 	
 	@Autowired
-	private TipoUsuario tipoUsu;
+	private Perfil perfilUsu;
 	
 	private Integer id;
 	@NotEmpty(message="O preenchimento é obrigatório!")
@@ -22,14 +22,14 @@ public class UsuarioDTO {
 	@NotEmpty(message="O preenchimento é obrigatório!")
 	private String senha;
 	@NotEmpty(message="O preenchimento é obrigatório!")
-	private Integer tipo;
+	private Integer perfil;
 	
 	public UsuarioDTO(Usuario obj) {
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
-		this.tipo = tipoUsu.getCod();
+		this.perfil = perfilUsu.getCod();
 	}
 	
 	public Integer getId() {
@@ -59,11 +59,11 @@ public class UsuarioDTO {
 		this.senha = senha;
 	}
 	
-	public Integer getTipo() {
-		return tipo;
+	public Integer getPerfil() {
+		return perfil;
 	}
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setPerfil(Integer perfil) {
+		this.perfil = perfil;
 	}
 	
 }
