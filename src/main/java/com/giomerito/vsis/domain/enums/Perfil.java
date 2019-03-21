@@ -3,8 +3,8 @@ package com.giomerito.vsis.domain.enums;
 public enum Perfil {
 	
 	ADMIN(1, "ROLE_ADMIN"),
-	USER(2, "ROLE_USER"),
-	CLIENTE(3, "ROLE_CLIENTE");
+	USER(2, "ROLE_USER");
+	
 	
 	private int cod;
 	private String descricao;

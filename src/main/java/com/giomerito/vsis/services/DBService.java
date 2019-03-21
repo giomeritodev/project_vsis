@@ -62,7 +62,7 @@ public class DBService {
 
 	public void instantiateTestDatabase() throws ParseException {
 
-		Usuario usu = new Usuario(null, "Giomerito Alves de Souza", "giomerito", pe.encode("giogiu"));
+		Usuario usu = new Usuario(null, "Giomerito Alves de Souza", "giomerito.souza@gmail.com", pe.encode("giogiu"));
 		usu.addPerfil(Perfil.ADMIN);
 		usuarioRepository.saveAll(Arrays.asList(usu));
 

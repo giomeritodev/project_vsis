@@ -15,6 +15,7 @@ import org.thymeleaf.context.Context;
 
 import com.giomerito.vsis.domain.Pedido;
 
+
 public abstract class AbstractEmailService implements EmailService {
 
 	@Value("${default.sender}")
@@ -22,6 +23,7 @@ public abstract class AbstractEmailService implements EmailService {
 
 	@Autowired
 	private TemplateEngine templateEngine;
+	
 	@Autowired
 	private JavaMailSender javaMailSender;
 

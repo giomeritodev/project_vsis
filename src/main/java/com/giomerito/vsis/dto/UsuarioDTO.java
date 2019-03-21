@@ -16,11 +16,14 @@ public class UsuarioDTO {
 	private Integer id;
 	@NotEmpty(message="O preenchimento é obrigatório!")
 	private String nome;
+	
 	@NotEmpty(message="O preenchimento é obrigatório!")
 	@Email(message="Email inválido!")
 	private String email;
+	
 	@NotEmpty(message="O preenchimento é obrigatório!")
 	private String senha;
+	
 	@NotEmpty(message="O preenchimento é obrigatório!")
 	private Integer perfil;
 	
