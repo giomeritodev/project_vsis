@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.giomerito.vsis.domain.Usuario;
+import com.giomerito.vsis.domain.enums.Perfil;
 import com.giomerito.vsis.dto.UsuarioDTO;
 import com.giomerito.vsis.repositories.UsuarioRepository;
+import com.giomerito.vsis.security.UserSS;
+import com.giomerito.vsis.services.exceptions.AuthorizationException;
 import com.giomerito.vsis.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -23,6 +26,12 @@ public class UsuarioService {
 	private UsuarioRepository repo;
 	
 	public Usuario find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Usuario> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado, ID: "+ id + " Perfil: " + 
