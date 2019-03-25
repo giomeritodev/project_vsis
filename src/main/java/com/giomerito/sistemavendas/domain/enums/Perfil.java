@@ -2,7 +2,7 @@ package com.giomerito.sistemavendas.domain.enums;
 
 public enum Perfil {
 
-	ADMIN(1, "ROLE_ADMIN"), CLIENTE(2, "ROLE_CLIENTE");
+	ADMIN(1, "ROLE_ADMIN"), CLIENTE(2, "ROLE_CLIENTE"), USER(3, "Usuário");
 
 	private int cod;
 	private String descricao;
